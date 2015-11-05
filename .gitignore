@@ -1,0 +1,14 @@
+/bin
+/target
+/build
+.project
+.classpath
+/.settings
+/.gradle
+/.idea
+/.bpmn
+/src/main/resources/hibernate.properties
+/bin/
+/src/main/resources/pages/js/plugin_types.js
+/src/main/resources/pages/js/PluginService.js
+*.iml

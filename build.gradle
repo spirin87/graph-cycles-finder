@@ -1,0 +1,34 @@
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+jar {
+  baseName = 'graph-cycles-finder'
+  version = '0.1.0'
+}
+
+dependencies {
+  testCompile 'junit:junit:4.11'
+  testCompile 'io.gsonfire:gson-fire:1.3.1'
+  testCompile 'org.apache.commons:commons-io:1.3.2'
+  // testCompile 'org.graphstream:gs-core:1.3'
+}
+
+configurations {
+  providedRuntime
+}
+
+clean {
+  delete 'bin'
+  delete 'target'
+  delete '.settings'
+  delete '.project'
+  delete '.classpath'
+}
+
+tasks.eclipse.dependsOn(clean)
