@@ -3,7 +3,7 @@ package io.github.spirin87.graph_finder.test;
 import io.github.spirin87.graph_finder.DirectedGraphEdge;
 import io.github.spirin87.graph_finder.Graph;
 import io.github.spirin87.graph_finder.GraphEdge;
-import io.github.spirin87.graph_finder.GraphСycleFinder;
+import io.github.spirin87.graph_finder.GraphCycleFinder;
 import io.github.spirin87.graph_finder.SubGraphFinder;
 import io.github.spirin87.graph_finder.UndirectedGraphEdge;
 
@@ -55,39 +55,39 @@ public class GraphEdgeTest {
     public void testCycles() {
         long[][] data = new long[][] { { 0L, 1L }, { 0L, 2L }, { 0L, 3L }, { 1L, 3L }, { 2L, 3L } };
         Graph graph = Graph.createUndirectedGraph(data);
-        GraphСycleFinder graphСycleFinder = new GraphСycleFinder(graph, false);
-        Set<List<Long>> сycles = graphСycleFinder.findСycles();
+        GraphCycleFinder GraphCycleFinder = new GraphCycleFinder(graph, false);
+        Set<List<Long>> сycles = GraphCycleFinder.findСycles();
         Assert.assertEquals(3, сycles.size());
 
         data = new long[][] { { 0L, 1L }, { 0L, 2L }, { 0L, 3L }, { 1L, 3L }, { 2L, 3L }, { 3L, 2L }, { 2L, 0L } };
         graph = Graph.createDirectedGraph(data);
-        graphСycleFinder = new GraphСycleFinder(graph, true);
-        сycles = graphСycleFinder.findСycles();
+        GraphCycleFinder = new GraphCycleFinder(graph, true);
+        сycles = GraphCycleFinder.findСycles();
         Assert.assertEquals(4, сycles.size());
 
         data = new long[][] { { 0L, 1L }, { 1L, 0L }, { 1L, 2L } };
         graph = Graph.createDirectedGraph(data);
-        graphСycleFinder = new GraphСycleFinder(graph, true);
-        сycles = graphСycleFinder.findСycles();
+        GraphCycleFinder = new GraphCycleFinder(graph, true);
+        сycles = GraphCycleFinder.findСycles();
         Assert.assertEquals(1, сycles.size());
 
         data = new long[][] { { 0L, 1L } };
         graph = Graph.createUndirectedGraph(data);
-        graphСycleFinder = new GraphСycleFinder(graph, false);
-        сycles = graphСycleFinder.findСycles();
+        GraphCycleFinder = new GraphCycleFinder(graph, false);
+        сycles = GraphCycleFinder.findСycles();
         Assert.assertEquals(0, сycles.size());
 
         data = new long[][] { { 0L, 1L }, { 1L, 0L } };
         graph = Graph.createUndirectedGraph(data);
-        graphСycleFinder = new GraphСycleFinder(graph, false);
-        сycles = graphСycleFinder.findСycles();
+        GraphCycleFinder = new GraphCycleFinder(graph, false);
+        сycles = GraphCycleFinder.findСycles();
         Assert.assertEquals(0, сycles.size());
 
         data = new long[][] { { 0L, 1L }, { 1L, 0L }, { 1L, 2L }, { 10L, 11L }, { 10L, 12L }, { 10L, 13L }, { 11L, 13L }, { 12L, 13L },
                 { 13L, 12L }, { 12L, 10L } };
         graph = Graph.createDirectedGraph(data);
-        graphСycleFinder = new GraphСycleFinder(graph, true);
-        сycles = graphСycleFinder.findСycles();
+        GraphCycleFinder = new GraphCycleFinder(graph, true);
+        сycles = GraphCycleFinder.findСycles();
         Assert.assertEquals(1 + 4, сycles.size());
     }
     
@@ -128,8 +128,8 @@ public class GraphEdgeTest {
         сycle.add(555L);
         сycle.add(33L);
         Graph graph = Graph.createDirectedGraph(data);
-        GraphСycleFinder graphСycleFinder = new GraphСycleFinder(graph, true);
-        Set<List<Long>> сycles = graphСycleFinder.findСycles();
+        GraphCycleFinder GraphCycleFinder = new GraphCycleFinder(graph, true);
+        Set<List<Long>> сycles = GraphCycleFinder.findСycles();
         Assert.assertTrue(сycles.size() > 0);
         Assert.assertEquals(сycles.iterator().next(), сycle);
     }

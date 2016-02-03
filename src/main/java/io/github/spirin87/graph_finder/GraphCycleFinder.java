@@ -12,13 +12,13 @@ import java.util.Set;
  * <p>
  * Nov 5, 2015, 8:48:44 AM
  */
-public class GraphСycleFinder {
+public class GraphCycleFinder {
 
     private Graph graph;
 
     private boolean directed;
 
-    public GraphСycleFinder(Graph graph, boolean directed) {
+    public GraphCycleFinder(Graph graph, boolean directed) {
         this.graph = graph;
         this.directed = directed;
     }
