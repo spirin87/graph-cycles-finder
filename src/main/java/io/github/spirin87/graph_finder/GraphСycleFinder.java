@@ -62,7 +62,8 @@ public class GraphСycleFinder {
                 ArrayList<Long> _passedNodes = new ArrayList<>(passedNodes);
                 _passedNodes.add(nextKey);
                 findСycles(nextKey, subEdges, _passedNodes, cycles);
-            } else if (passedNodes.size() > 2 && passedNodes.get(passedNodes.size() - 2) != nextKey) {
+            } else if ((directed && passedNodes.size() > 1 && passedNodes.get(passedNodes.size() - 1) != nextKey)
+                    || (!directed && passedNodes.size() > 2 && passedNodes.get(passedNodes.size() - 2) != nextKey)) {
                 List<Long> cycle = new ArrayList<>(passedNodes);
                 if (cycle.indexOf(nextKey) != 0) {
                     cycle = cycle.subList(cycle.indexOf(nextKey), cycle.size());

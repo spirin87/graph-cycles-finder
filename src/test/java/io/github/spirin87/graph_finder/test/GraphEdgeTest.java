@@ -1,5 +1,12 @@
 package io.github.spirin87.graph_finder.test;
 
+import io.github.spirin87.graph_finder.DirectedGraphEdge;
+import io.github.spirin87.graph_finder.Graph;
+import io.github.spirin87.graph_finder.GraphEdge;
+import io.github.spirin87.graph_finder.GraphСycleFinder;
+import io.github.spirin87.graph_finder.SubGraphFinder;
+import io.github.spirin87.graph_finder.UndirectedGraphEdge;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,12 +14,6 @@ import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import io.github.spirin87.graph_finder.DirectedGraphEdge;
-import io.github.spirin87.graph_finder.Graph;
-import io.github.spirin87.graph_finder.GraphEdge;
-import io.github.spirin87.graph_finder.GraphСycleFinder;
-import io.github.spirin87.graph_finder.UndirectedGraphEdge;
 
 /**
  * @author spirin87@gmail.com
@@ -62,7 +63,48 @@ public class GraphEdgeTest {
         graph = Graph.createDirectedGraph(data);
         graphСycleFinder = new GraphСycleFinder(graph, true);
         сycles = graphСycleFinder.findСycles();
-        Assert.assertEquals(2, сycles.size());
+        Assert.assertEquals(4, сycles.size());
+
+        data = new long[][] { { 0L, 1L }, { 1L, 0L }, { 1L, 2L } };
+        graph = Graph.createDirectedGraph(data);
+        graphСycleFinder = new GraphСycleFinder(graph, true);
+        сycles = graphСycleFinder.findСycles();
+        Assert.assertEquals(1, сycles.size());
+
+        data = new long[][] { { 0L, 1L } };
+        graph = Graph.createUndirectedGraph(data);
+        graphСycleFinder = new GraphСycleFinder(graph, false);
+        сycles = graphСycleFinder.findСycles();
+        Assert.assertEquals(0, сycles.size());
+
+        data = new long[][] { { 0L, 1L }, { 1L, 0L } };
+        graph = Graph.createUndirectedGraph(data);
+        graphСycleFinder = new GraphСycleFinder(graph, false);
+        сycles = graphСycleFinder.findСycles();
+        Assert.assertEquals(0, сycles.size());
+
+        data = new long[][] { { 0L, 1L }, { 1L, 0L }, { 1L, 2L }, { 10L, 11L }, { 10L, 12L }, { 10L, 13L }, { 11L, 13L }, { 12L, 13L },
+                { 13L, 12L }, { 12L, 10L } };
+        graph = Graph.createDirectedGraph(data);
+        graphСycleFinder = new GraphСycleFinder(graph, true);
+        сycles = graphСycleFinder.findСycles();
+        Assert.assertEquals(1 + 4, сycles.size());
+    }
+    
+    @Test
+    public void testSubGraph() {
+        long[][] data = new long[][] { { 0L, 1L }, { 1L, 0L }, { 1L, 2L }, { 10L, 11L }, { 10L, 12L }, { 10L, 13L }, { 11L, 13L },
+                { 12L, 13L }, { 13L, 12L }, { 12L, 10L } };
+        Graph graph = Graph.createUndirectedGraph(data);
+        SubGraphFinder subGraphFinder = new SubGraphFinder(graph);
+        Set<Long> result = subGraphFinder.findSubgraphNodesNyNode(0L);
+        Assert.assertEquals(3, result.size());
+        Assert.assertTrue(result.contains(2L));
+        result = subGraphFinder.findSubgraphNodesNyNode(13L);
+        Assert.assertEquals(4, result.size());
+        Assert.assertTrue(result.contains(12L));
+        result = subGraphFinder.findSubgraphNodesNyNode(1000L);
+        Assert.assertEquals(0, result.size());
     }
 
     @Test
